@@ -1,4 +1,3 @@
-
 #Take a beer
 
 The web application I propose is a platform for selling barrels of beer to customers. The application is targeted towards craft beer enthusiasts and event planners who are looking to purchase beer in bulk for their parties and events.
