@@ -1,5 +1,3 @@
-# SSCF-project
-
 
 #Take a beer
 
