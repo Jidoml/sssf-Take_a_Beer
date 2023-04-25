@@ -1,0 +1,22 @@
+type Drink {
+    id: ID!
+    name: String!
+    description: String!
+    price: Float!
+    alcoholic: Boolean!
+    amountOfAlcohol: Float!
+    brewery: String!
+    type: String!
+    IBU: Float!
+}
+
+type Query {
+    drinks: [Drink!]!
+    drink(id: ID!): Drink
+}
+
+type Mutation {
+    createDrink(name: String!, description: String!, price: Float!, alcoholic: Boolean!, amountOfAlcohol: Float!, brewery: String!, type: String!, IBU: Float!): Drink!
+    updateDrink(id: ID!, name: String, description: String, price: Float, alcoholic: Boolean, amountOfAlcohol: Float, brewery: String, type: String, IBU: Float): [Int!]!
+    deleteDrink(id: ID!): Int!
+}

@@ -1,0 +1,19 @@
+type Loan {
+    id: ID!
+    loanID: Int!
+    user: User!
+    barrel: Barrel!
+    startDate: DateTime!
+    endDate: DateTime!
+}
+
+type Query {
+    loans: [Loan!]!
+    loan(id: ID!): Loan!
+}
+
+type Mutation {
+    createLoan(loanID: Int!, userID: ID!, barrelID: ID!, date: DateTime!): Loan!
+    updateLoan(id: ID!, loanID: Int!, userID: ID!, barrelID: ID!, date: DateTime!): Loan!
+    deleteLoan(id: ID!): Loan!
+}

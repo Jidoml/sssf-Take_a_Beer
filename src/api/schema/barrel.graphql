@@ -1,0 +1,26 @@
+scalar DateTime
+
+type Barrel {
+    id: ID!
+    price: Float!
+    volume: Float!
+    drink: Drink!
+    status: BarrelStatus!
+}
+
+enum BarrelStatus {
+    AVAILABLE
+    UNAVAILABLE
+    RESERVED
+}
+
+type Query {
+    barrels: [Barrel]
+    barrel(id: ID!): Barrel
+}
+
+type Mutation {
+    createBarrel(price: Float!, volume: Float!, drinkId: ID!): Barrel
+    updateBarrel(id: ID!, price: Float, volume: Float, drinkId: ID, status: BarrelStatus): Barrel
+    deleteBarrel(id: ID!): Barrel
+}
