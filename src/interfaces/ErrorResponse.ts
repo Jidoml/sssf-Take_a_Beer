@@ -1,5 +1,5 @@
-//TODO
+import MessageResponse from './MessageResponse';
 
-export default class ErrorResponse {
-
+export default interface ErrorResponse extends MessageResponse {
+  stack?: string;
 }
