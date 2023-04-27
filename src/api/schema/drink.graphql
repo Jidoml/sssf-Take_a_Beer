@@ -2,6 +2,7 @@ type Drink {
     id: ID!
     name: String!
     description: String!
+    image: String!
     price: Float!
     alcoholic: Boolean!
     amountOfAlcohol: Float!

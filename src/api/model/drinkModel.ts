@@ -25,6 +25,10 @@ const drinkSchema = new mongoose.Schema<Drinks>({
     required: true,
     minlength: 2,
   },
+  image: {
+    type: String,
+    required: true,
+  },
   type: {
     type: String,
     required: true,

@@ -4,6 +4,7 @@ interface Drinks extends Document {
   amountOfAlcohol: number;
   brewery: string;
   description: string;
+  image: string;
   type: string;
   IBU: number;
 }
