@@ -1,9 +1,20 @@
 import {User, UserIdWithToken} from "../../interfaces/User";
 import {GraphQLError} from "graphql";
 import LoginMessageResponse from "../../interfaces/LoginMessageResponse";
+import {Loans} from "../../interfaces/Loans";
 
 export default {
-  //TODO: probably need to add loan and other stuff for checking if user is allowed to do stuff
+  Loans: {
+    user: async (parent: Loans) => {
+      const response = await fetch(`${process.env.AUTH_URL}/loans/${parent.user}`);
+      if (!response.ok) {
+        throw new GraphQLError(response.statusText, {
+          extensions: {code: 'NOT_FOUND'},
+        });
+      }
+      return (await response.json()) as Loans[];
+    },
+  },
   Query: {
     users: async() => {
       const response = await fetch(`${process.env.AUTH_URL}/users`);

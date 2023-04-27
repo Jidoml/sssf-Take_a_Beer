@@ -1,7 +1,13 @@
 import barrelModel from "../model/barrelModel";
-
+import {Loans} from "../../interfaces/Loans";
+import {Barrels} from "../../interfaces/Barrels";
 
 export default {
+  Loans: {
+    barrel: async (parent: Loans) => {
+      return (await barrelModel.findById(parent.barrel)) as Barrels;
+    }
+  },
   Query: {
     barrels: async () => {
       return barrelModel.find();

@@ -1,7 +1,13 @@
 import drinkModel from "../model/drinkModel";
 import {Drinks} from "../../interfaces/Drinks";
+import {Barrels} from "../../interfaces/Barrels";
 
 export default {
+  Barrel: {
+    drink: async (parent: Barrels) => {
+      return (await drinkModel.findById(parent.drink)) as Drinks;
+    },
+  },
   Query: {
     drinks: async () => {
       return drinkModel.find();
