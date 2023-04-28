@@ -10,6 +10,7 @@ type Loan {
 type Query {
     loans: [Loan!]!
     loan(id: ID!): [Loan]!
+    loanByOwner(ownerID: ID!): [Loan]!
 }
 
 type Mutation {
