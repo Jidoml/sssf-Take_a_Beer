@@ -1,6 +1,8 @@
 import drinkModel from "../model/drinkModel";
 import {Drinks} from "../../interfaces/Drinks";
 import {Barrels} from "../../interfaces/Barrels";
+import {UserIdWithToken} from "../../interfaces/User";
+import {GraphQLError} from "graphql";
 
 export default {
   Barrel: {
@@ -17,18 +19,44 @@ export default {
     },
   },
   Mutation: {
-    createDrink: async (_parent: unknown, args: {id: number}) => {
+    createDrink: async (_parent: unknown, args: {id: number}, user: UserIdWithToken) => {
+      if(!user.token) {
+        throw new GraphQLError('User not logged in', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
+      if(user.role !== 'admin') {
+        throw new GraphQLError('Not ADMIN', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
       const drink = new drinkModel(args);
       return drink.save();
     },
-    updateDrink: async (_parent: unknown, args: {id: number}) => {
-      //TODO: check token and if user can update drink
-
+    updateDrink: async (_parent: unknown, args: {id: number}, user: UserIdWithToken) => {
+      if(!user.token) {
+        throw new GraphQLError('User not logged in', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
+      if(user.role !== 'admin') {
+        throw new GraphQLError('Not ADMIN', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
       return drinkModel.findByIdAndUpdate(args.id, args, {new: true});
     },
-    deleteDrink: async (_parent: unknown, args: {id: number}) => {
-      //TODO: check token and if user can delete drink
-
+    deleteDrink: async (_parent: unknown, args: {id: number}, user: UserIdWithToken) => {
+      if(!user.token) {
+        throw new GraphQLError('User not logged in', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
+      if(user.role !== 'admin') {
+        throw new GraphQLError('Not ADMIN', {
+          extensions: {code: 'UNAUTHORIZED'},
+        });
+      }
       return drinkModel.findByIdAndDelete(args.id);
     },
   },
