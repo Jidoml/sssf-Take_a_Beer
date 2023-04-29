@@ -4,7 +4,7 @@ import LoginMessageResponse from "../../interfaces/LoginMessageResponse";
 import {Loans} from "../../interfaces/Loans";
 
 export default {
-  Loans: {
+  Loan: {
     user: async (parent: Loans) => {
       const response = await fetch(`${process.env.AUTH_URL}/loans/${parent.user}`);
       if (!response.ok) {

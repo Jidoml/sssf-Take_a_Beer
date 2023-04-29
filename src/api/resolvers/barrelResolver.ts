@@ -6,7 +6,7 @@ import {GraphQLError} from "graphql/index";
 import loanModel from "../model/loanModel";
 
 export default {
-  Loans: {
+  Loan: {
     barrel: async (parent: Loans) => {
       return (await barrelModel.findById(parent.barrel)) as Barrels;
     }
