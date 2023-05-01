@@ -1,3 +1,6 @@
-import userReslover from './userResolver';
+import drinkResolver from "./drinkResolver";
+import userResolver from "./userResolver";
+import barrelResolver from "./barrelResolver";
+import loanResolver from "./loanResolver";
 
-export default [userReslover];
+export default [userResolver, drinkResolver, barrelResolver, loanResolver];
