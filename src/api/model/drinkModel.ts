@@ -1,14 +1,9 @@
 import mongoose from "mongoose";
-import {Drinks} from "../../interfaces/Drinks";
+import {Drink} from "../../interfaces/Drink";
 
-const drinkSchema = new mongoose.Schema<Drinks>({
+const drinkModel = new mongoose.Schema<Drink>({
   name: {
     type: String,
-    required: true,
-    minlength: 2,
-  },
-  alcoholic: {
-    type: Boolean,
     required: true,
   },
   amountOfAlcohol: {
@@ -18,7 +13,6 @@ const drinkSchema = new mongoose.Schema<Drinks>({
   brewery: {
     type: String,
     required: true,
-    minlength: 2,
   },
   description: {
     type: String,
@@ -27,11 +21,11 @@ const drinkSchema = new mongoose.Schema<Drinks>({
   },
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   type: {
     type: String,
-    required: true,
+    required: false,
   },
   IBU: {
     type: Number,
@@ -39,4 +33,4 @@ const drinkSchema = new mongoose.Schema<Drinks>({
   },
 });
 
-export default mongoose.model<Drinks>("Drinks", drinkSchema);
+export default mongoose.model<Drink>("Drink", drinkModel);
