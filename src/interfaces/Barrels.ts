@@ -1,10 +1,10 @@
 import { Types, Document} from "mongoose";
-import { Drinks } from './Drinks';
+import { Drink } from './Drink';
 
 interface Barrels extends Document {
   price: number; // in euros
   volume: number; // in liters
-  drink: Types.ObjectId | Drinks;
+  drink: Types.ObjectId | Drink;
   status: 'available' | 'unavailable' | 'reserved';
 }
 
