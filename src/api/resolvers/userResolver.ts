@@ -18,12 +18,14 @@ export default {
   Query: {
     users: async() => {
       const response = await fetch(`${process.env.AUTH_URL}/users`);
-      if (response.ok) {
+      if (!response.ok) {
         throw new GraphQLError(response.statusText, {
           extensions: {code: 'NOT FOUND'}
         });
       }
-      return (await response.json()) as User[];
+      const resp = await response.json()
+      console.log(resp);
+      return resp as User[];
     },
     userById: async (_parent: unknown, args: {id: string}) => {
       const response = await fetch(`${process.env.AUTH_URL}/users/${args.id}`);
@@ -67,12 +69,15 @@ export default {
         },
         body: JSON.stringify(args.credentials),
       });
+      console.log(args);
       if (!response.ok) {
         throw new GraphQLError(response.statusText, {
           extensions: {code: 'NOT_FOUND'},
         });
       }
-      return (await response.json()) as LoginMessageResponse;
+      const resp = await response.json()
+      console.log(resp);
+      return resp as LoginMessageResponse;
     },
     register: async (_parent: unknown, args: {user: User}) => {
       const response = await fetch(`${process.env.AUTH_URL}/users`, {
@@ -82,12 +87,15 @@ export default {
         },
         body: JSON.stringify(args.user),
       });
+      console.log(args);
       if (!response.ok) {
         throw new GraphQLError(response.statusText, {
           extensions: {code: 'VALIDATION_ERROR'},
         });
       }
-      return (await response.json()) as LoginMessageResponse;
+      const resp = await response.json()
+      console.log(resp);
+      return resp as LoginMessageResponse;
     },
     updateUser: async (
       _parent: unknown,
