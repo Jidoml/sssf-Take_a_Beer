@@ -3,14 +3,9 @@ type Barrel {
     price: Float!
     volume: Float!
     drink: Drink!
-    status: BarrelStatus!
+    available: Boolean!
 }
 
-enum BarrelStatus {
-    AVAILABLE
-    UNAVAILABLE
-    RESERVED
-}
 
 type Query {
     barrels: [Barrel]
@@ -18,7 +13,7 @@ type Query {
 }
 
 type Mutation {
-    createBarrel(price: Float!, volume: Float!, drinkId: ID!): Barrel
-    updateBarrel(id: ID!, price: Float, volume: Float, drinkId: ID, status: BarrelStatus): Barrel
+    createBarrel(price: Float!, volume: Float!, drink: ID!, available: Boolean!): Barrel
+    updateBarrel(id: ID!, price: Float, volume: Float, drink: ID,): Barrel
     deleteBarrel(id: ID!): Barrel
 }

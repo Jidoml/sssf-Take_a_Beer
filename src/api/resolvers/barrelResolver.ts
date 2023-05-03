@@ -4,6 +4,7 @@ import {Barrels} from "../../interfaces/Barrels";
 import {UserIdWithToken} from "../../interfaces/User";
 import {GraphQLError} from "graphql/index";
 import loanModel from "../model/loanModel";
+import {Drink} from "../../interfaces/Drink";
 
 export default {
   Loan: {
@@ -20,19 +21,21 @@ export default {
     },
   },
   Mutation: {
-    createBarrel: async (_parent: unknown, args: {id: number}, user: UserIdWithToken) => {
+    createBarrel: async (_parent: undefined, args: Barrels, user: UserIdWithToken) => {
       if(!user.token) {
         throw new GraphQLError('User not logged in', {
           extensions: {code: 'UNAUTHORIZED'},
         });
       }
+      console.log(args);
       if(user.role !== 'admin') {
         throw new GraphQLError('Not ADMIN', {
           extensions: {code: 'UNAUTHORIZED'},
         });
       }
       const barrel = new barrelModel(args);
-      return barrel.save();
+      console.log(barrel);
+      return await barrel.save();
     },
     updateBarrel: async (_parent: unknown, args: {id: number}, user: UserIdWithToken) => {
       if(!user.token) {

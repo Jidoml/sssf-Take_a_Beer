@@ -12,16 +12,13 @@ const barrelSchema = new mongoose.Schema<Barrels>({
   },
   drink: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Drinks",
+    ref: "Drink",
     required: true,
   },
-  status: {
-    string: {
-      type: String,
-      required: true,
-      enum: ["available", "unavailable", "reserved"],
-    },
-  },
+  available: {
+    type: Boolean,
+    required: true,
+  }
 });
 
 export default mongoose.model<Barrels>("Barrels", barrelSchema);
