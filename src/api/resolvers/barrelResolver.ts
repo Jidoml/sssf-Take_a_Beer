@@ -19,6 +19,9 @@ export default {
     barrelById: async (_parent: unknown, args: {id: number}) => {
       return barrelModel.findById(args.id);
     },
+    barrelByDrink: async (_parent: unknown, args: {drinkId: number}) => {
+      return barrelModel.find({drink: args.drinkId});
+    },
   },
   Mutation: {
     createBarrel: async (_parent: undefined, args: Barrels, user: UserIdWithToken) => {

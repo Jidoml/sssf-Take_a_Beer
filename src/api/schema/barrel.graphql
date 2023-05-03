@@ -10,6 +10,7 @@ type Barrel {
 type Query {
     barrels: [Barrel]
     barrelById(id: ID!): Barrel
+    barrelByDrink(drinkId: ID!): [Barrel]
 }
 
 type Mutation {
