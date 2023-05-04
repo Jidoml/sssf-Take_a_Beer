@@ -1,22 +1,17 @@
 scalar DateTime
 
 type Loan {
-    id: ID!
-    loanID: Int!
     user: User!
-    barrel: Barrel!
-    startDate: DateTime!
-    endDate: DateTime!
+    barrel: [Barrel]!
+    pickUp: String!
 }
 
 type Query {
     loans: [Loan!]!
-    loanById(id: ID!): [Loan]!
     loanByOwner(ownerID: ID!): [Loan]!
 }
 
 type Mutation {
-    createLoan(loanID: Int!, userID: ID!, barrelID: ID!, date: DateTime!): Loan!
-    updateLoan(id: ID!, loanID: Int!, userID: ID!, barrelID: ID!, date: DateTime!): Loan!
+    createLoan(user: ID!, barrel: [ID]!, pickUp: String!): Loan
     deleteLoan(id: ID!): Loan!
 }
