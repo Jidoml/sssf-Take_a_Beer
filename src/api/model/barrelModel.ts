@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import {Barrels} from "../../interfaces/Barrels";
+import {Barrel} from "../../interfaces/Barrel";
 
-const barrelSchema = new mongoose.Schema<Barrels>({
+const barrelSchema = new mongoose.Schema<Barrel>({
   price: {
     type: Number,
     required: true,
@@ -21,4 +21,4 @@ const barrelSchema = new mongoose.Schema<Barrels>({
   }
 });
 
-export default mongoose.model<Barrels>("Barrels", barrelSchema);
+export default mongoose.model<Barrel>("Barrels", barrelSchema);
