@@ -6,13 +6,14 @@ import {Loans} from "../../interfaces/Loans";
 export default {
   Loan: {
     user: async (parent: Loans) => {
-      const response = await fetch(`${process.env.AUTH_URL}/loans/${parent.user}`);
+      console.log(parent.user);
+      const response = await fetch(`${process.env.AUTH_URL}/users/${parent.user}`);
       if (!response.ok) {
         throw new GraphQLError(response.statusText, {
           extensions: {code: 'NOT_FOUND'},
         });
       }
-      return (await response.json()) as Loans[];
+      return (await response.json()) as User;
     },
   },
   Query: {

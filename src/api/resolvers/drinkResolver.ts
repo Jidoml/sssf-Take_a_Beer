@@ -1,12 +1,12 @@
 import drinkModel from "../model/drinkModel";
 import {Drink} from "../../interfaces/Drink";
-import {Barrels} from "../../interfaces/Barrels";
+import {Barrel} from "../../interfaces/Barrel";
 import {UserIdWithToken} from "../../interfaces/User";
 import {GraphQLError} from "graphql";
 
 export default {
   Barrel: {
-    drink: async (parent: Barrels) => {
+    drink: async (parent: Barrel) => {
       return (await drinkModel.findById(parent.drink)) as Drink;
     },
   },
