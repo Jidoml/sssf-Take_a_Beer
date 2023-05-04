@@ -1,15 +1,18 @@
 import barrelModel from "../model/barrelModel";
 import {Loans} from "../../interfaces/Loans";
-import {Barrels} from "../../interfaces/Barrels";
+import {Barrel} from "../../interfaces/Barrel";
 import {UserIdWithToken} from "../../interfaces/User";
 import {GraphQLError} from "graphql/index";
-import loanModel from "../model/loanModel";
-import {Drink} from "../../interfaces/Drink";
 
 export default {
   Loan: {
     barrel: async (parent: Loans) => {
-      return (await barrelModel.findById(parent.barrel)) as Barrels;
+      let barrels: Barrel[] = [];
+      for (const barrelId of parent.barrel) {
+        const barrel = (await barrelModel.findById(barrelId)) as Barrel;
+        barrels.push(barrel);
+      }
+      return barrels;
     }
   },
   Query: {
@@ -24,7 +27,7 @@ export default {
     },
   },
   Mutation: {
-    createBarrel: async (_parent: undefined, args: Barrels, user: UserIdWithToken) => {
+    createBarrel: async (_parent: undefined, args: Barrel, user: UserIdWithToken) => {
       if(!user.token) {
         throw new GraphQLError('User not logged in', {
           extensions: {code: 'UNAUTHORIZED'},
