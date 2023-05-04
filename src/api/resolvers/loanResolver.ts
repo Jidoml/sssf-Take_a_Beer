@@ -1,7 +1,7 @@
 import {GraphQLError} from "graphql";
 import {Loans} from "../../interfaces/Loans";
 import loanModel from "../model/loanModel";
-import mongoose from "mongoose";
+import mongoose, {Types} from "mongoose";
 import {UserIdWithToken} from "../../interfaces/User";
 
 export default {
@@ -9,51 +9,36 @@ export default {
     loans: async () => {
       return loanModel.find();
     },
-    loanById: async (_parent: unknown, args: Loans) => {
-      return loanModel.findById(args.loanID);
-    },
     loanByOwner: async (_parent: unknown, args: UserIdWithToken) => {
       return loanModel.find({user: args.id});
     }
   },
   Mutation: {
-    createLoan: async (_parent: unknown, args: Loans, user: UserIdWithToken) => {
+    createLoan: async (_parent: undefined, args: Loans, user: UserIdWithToken) => {
       if(!user.token) {
         throw new GraphQLError('User not logged in', {
           extensions: {code: 'UNAUTHORIZED'},
         });
       }
-      args.user = user.id as unknown as mongoose.Types.ObjectId
+      console.log(args);
+      console.log(user);
+      args.user = user.id as unknown as Types.ObjectId;
       const loan = new loanModel(args);
-      return loan.save();
+      return await loan.save();
     },
-    updateLoan: async (_parent: unknown, args: Loans, user: UserIdWithToken) => {
+    deleteLoan: async (_parent: unknown, args: { id: number }, user: UserIdWithToken) => {
       if(!user.token) {
         throw new GraphQLError('User not logged in', {
           extensions: {code: 'UNAUTHORIZED'},
         });
       }
-      const loan = await loanModel.findById(args.loanID);
+      const loan = await loanModel.findById(args.id);
       if(loan?.user.toJSON().toString() !== user.id || user.role !== 'admin') {
         throw new GraphQLError('Not owner or admin', {
           extensions: {code: 'UNAUTHORIZED'},
         });
       }
-      return loanModel.findByIdAndUpdate(args.loanID, args, {new: true});
-    },
-    deleteLoan: async (_parent: unknown, args: Loans, user: UserIdWithToken) => {
-      if(!user.token) {
-        throw new GraphQLError('User not logged in', {
-          extensions: {code: 'UNAUTHORIZED'},
-        });
-      }
-      const loan = await loanModel.findById(args.loanID);
-      if(loan?.user.toJSON().toString() !== user.id || user.role !== 'admin') {
-        throw new GraphQLError('Not owner or admin', {
-          extensions: {code: 'UNAUTHORIZED'},
-        });
-      }
-      return loanModel.findByIdAndDelete(args.loanID);
+      return loanModel.findByIdAndDelete(args.id);
     }
   }
 }
