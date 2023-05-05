@@ -57,18 +57,3 @@ jobs:
           environment:
             name: 'Production'
             url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-          steps:
-            - name: Download artifact from build job
-              uses: actions/download-artifact@v2
-              with:
-                name: node-app
-
-            - name: 'Deploy to Azure Web App'
-              id: deploy-to-webapp
-              uses: azure/webapps-deploy@v2
-              with:
-                app-name: 'take-a-beer-be'
-                slot-name: 'Production'
-                publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D3AF1A7F4E2445A69C6E5D4C7370CD0F }}
-                package: .
