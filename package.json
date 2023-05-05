@@ -7,7 +7,7 @@
     "start": "node dist/src/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "copyGraphql": "copyfiles --error src/api/schemas/*.graphql dist",
+    "copyGraphql": "copyfiles --error src/api/schema/*.graphql dist",
     "postbuild": "npm run copyGraphql",
     "lint": "eslint --fix src test",
     "test": "jest --detectOpenHandles --forceExit"
