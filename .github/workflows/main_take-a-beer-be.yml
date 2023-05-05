@@ -68,7 +68,7 @@ jobs:
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                app-name: 'SSSF-Week5'
+                app-name: 'take-a-beer-be'
                 slot-name: 'Production'
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D3AF1A7F4E2445A69C6E5D4C7370CD0F }}
                 package: .
