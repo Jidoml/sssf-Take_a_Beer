@@ -26,19 +26,5 @@ export default {
       const loan = new loanModel(args);
       return await loan.save();
     },
-    deleteLoan: async (_parent: unknown, args: { id: number }, user: UserIdWithToken) => {
-      if(!user.token) {
-        throw new GraphQLError('User not logged in', {
-          extensions: {code: 'UNAUTHORIZED'},
-        });
-      }
-      const loan = await loanModel.findById(args.id);
-      if(loan?.user.toJSON().toString() !== user.id || user.role !== 'admin') {
-        throw new GraphQLError('Not owner or admin', {
-          extensions: {code: 'UNAUTHORIZED'},
-        });
-      }
-      return loanModel.findByIdAndDelete(args.id);
-    }
   }
 }

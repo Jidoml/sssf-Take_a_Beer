@@ -13,5 +13,4 @@ type Query {
 
 type Mutation {
     createLoan(user: ID!, barrel: [ID]!, pickUp: String!): Loan
-    deleteLoan(id: ID!): Loan!
 }

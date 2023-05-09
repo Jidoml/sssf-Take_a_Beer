@@ -8,4 +8,11 @@ interface Loans extends Document {
   barrel: Types.ObjectId[] | Barrel[];
 }
 
-export {Loans};
+interface testLoans{
+  id?: string;
+  user?: string;
+  pickUp?: string;
+  barrel?: string[];
+}
+
+export {Loans, testLoans};

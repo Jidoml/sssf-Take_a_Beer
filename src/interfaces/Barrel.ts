@@ -1,5 +1,5 @@
 import { Types, Document} from "mongoose";
-import { Drink } from './Drink';
+import {Drink, testDrink} from './Drink';
 
 interface Barrel extends Document {
   price: number; // in euros
@@ -8,4 +8,12 @@ interface Barrel extends Document {
   available: boolean;
 }
 
-export {Barrel};
+interface testBarrel{
+  id?: string;
+  price?: number;
+  volume?: number;
+  drink?: string;
+  available?: boolean;
+}
+
+export {Barrel, testBarrel};

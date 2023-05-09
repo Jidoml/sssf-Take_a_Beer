@@ -17,6 +17,10 @@ import randomstring from "randomstring";
 import {getSingleUser, getUser, loginBrute, loginUser, postUser, putUser} from "./userFunctions";
 import jwt from "jsonwebtoken";
 import {Drink, testDrink} from "../src/interfaces/Drink";
+import {testBarrel} from "../src/interfaces/Barrel";
+import {createBarrel, deleteBarrel, getBarrelByDrink, getBarrels} from "./barrelFunctions";
+import {testLoans} from "../src/interfaces/Loans";
+import {createLoan} from "./loanFunctions";
 
 describe('Testing graphql api', () => {
   beforeAll(async () => {
@@ -120,9 +124,10 @@ describe('Testing graphql api', () => {
 
   // test post create drink
   let drinkId: string;
+  let drink: testDrink;
   it('should post drink', async () => {
     console.log('drinkData', drinkData);
-    const drink = await createDrink(app, drinkData, adminData.token!);
+    drink = await createDrink(app, drinkData, adminData.token!);
     drinkId = drink.id!;
   });
 
@@ -150,6 +155,58 @@ describe('Testing graphql api', () => {
       name: 'Test drink ' + randomstring.generate(7),
     };
     await updateDrink(app, newDrinkData, drinkId, adminData.token!);
+  });
+
+  // test create barrel
+  let barrelData: testBarrel;
+  it('should create barrel', async () => {
+    barrelData = {
+      price: 65,
+      volume: 50,
+      drink: drinkId,
+      available: true,
+    };
+  });
+
+  // test post create barrel
+  let barrelId: string;
+  it('should post barrel', async () => {
+    console.log('barrelData', barrelData);
+    const barrel = await createBarrel(app, barrelData, adminData.token!);
+    barrelId = barrel.id!;
+});
+
+  // test get all barrels
+  it('should get all barrels', async () => {
+    await getBarrels(app);
+  });
+
+  // test get single barrel by drink
+  it('should get single barrel by drink', async () => {
+    await getBarrelByDrink(app, drinkId);
+  });
+
+  // test create loan
+  let loanData: testLoans;
+  it('should create loan', async () => {
+    loanData = {
+      barrel: [barrelId],
+      user: userData.user.id!,
+      pickUp: "Helsinki",
+    };
+  });
+
+  // test post create loan
+  let loan : testLoans;
+  it('should post loan', async () => {
+    console.log('loanData', loanData);
+    loan = await createLoan(app, loanData, userData.token!);
+  });
+
+
+  // delete barrel
+  it('should delete barrel', async () => {
+    await deleteBarrel(app, barrelId, adminData.token!);
   });
 
   // delete drink with user who is admin
